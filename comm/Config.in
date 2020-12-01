@@ -1,0 +1,23 @@
+menu "Configuration"
+        depends on PACKAGE_comm
+
+config COMM_TIMER
+	bool 
+	prompt "Compile with timer"
+	default y
+
+config COMM_THREADPOOL
+	bool 
+	prompt "Compile with thread pool"
+	default y
+
+config COMM_PJLIB
+	bool 
+	prompt "Compile with pjsip"
+	default n
+
+config COMM_DEBUG
+	bool 
+	prompt "Compile with lock debug"
+	default n
+endmenu
