@@ -60,5 +60,6 @@ uninstallDev:
 	rm -rf	$(STAGING_DIR)/usr/lib/libcomm.{a,so*}
 
 install:
+	cp -ar $(PKG_BUILD_DIR)/install/include $(LIB_INSTALL_DIR)/comm
 	cp $(PKG_BUILD_DIR)/install/libcomm.so $(LIB_INSTALL_DIR)/
 	cp $(PKG_BUILD_DIR)/install/libcomm.so $(FILESYSTEM_DIR)/lib/

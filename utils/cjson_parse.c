@@ -29,7 +29,7 @@ int read_json_from_string(char *string, int (*parser)(cJSON *json, void *dst), v
 		return -1;
 	if(!force)
 	{
-		if(!default_load_config(string, &json))
+		if(!(res = default_load_config(string, &json)))
 		{
 			if(parser)
 			{
@@ -78,7 +78,7 @@ int read_json_from_file(char *filename, int (*parser)(cJSON *json, void *dst), v
 	
 	if(!force)
 	{
-		if(!default_load_config(tmp, &json))
+		if(!(res = default_load_config(tmp, &json)))
 		{
 			if(parser)
 			{

@@ -384,7 +384,7 @@ int coap_get_header(void *msg, char *key, char **value)
 	{		
 		val = coap_opt_value(option);
 		length = coap_opt_length(option);
-		if(*value) *value = (char *)val;
+		if(value) *value = (char *)val;
 		return length;
 	}
 	return -1;
@@ -480,11 +480,22 @@ sys_gateway_profile_callback(coap_context_t *ctx UNUSED_PARAM,
 
 static int regiter_callback(void *processor, void *args)
 {
-	
+	char route[128] = ".sys/gateway/";
 	method_t coap_method;
 	coap_context_t *ctx = (coap_context_t *)args;
-	char *route = get_processor_property_route(processor, 0);
+	char *coap_route = get_processor_property_route(processor, 0);
 	msg_process *process = get_processor_property_process(processor, 0);
+	
+	DBGPRINT(DEBUG_INFO, "=================>>>>>>  coap_route:%s \n",coap_route);
+	if(strstr(coap_route,".sys"))
+	{
+		DBGPRINT(DEBUG_INFO, ".sys find ,do not need add\n");
+		strcpy(route,coap_route);
+	}
+	else
+	{	
+		strcat(route,coap_route);
+	}
 	coap_resource_t *r = coap_resource_init(coap_make_str_const(route), 0);
 	int i = 0;
 	for(i = 0; i < REQUEST_METHOD_MAX; i++)
